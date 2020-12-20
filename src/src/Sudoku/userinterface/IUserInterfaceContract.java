@@ -8,6 +8,9 @@ public interface IUserInterfaceContract {
 
     interface View {
         void setListener(IUserInterfaceContract.EventListener listener);
-        void update
+        void updateSquare(int x, int y, int input);
+        void updateBoard(SudukuGame game);
+        void showDialog(String message);
+        void showError(String message);
     }
 }
