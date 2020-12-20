@@ -1,11 +1,16 @@
 package Sudoku.userinterface;
 
+import Sudoku.constants.GameState;
 import Sudoku.domain.Coordinates;
 import Sudoku.domain.SudokuGame;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
@@ -89,7 +94,7 @@ public class UserInterfaceImplementation implements IUserInterfaceContract.View,
                 int x = xOrigin + xIndex * xAndYDelta;
                 int y = yOrigin + yIndex * xAndYDelta;
 
-                SudokuTextField tile = new SudokuTextField(xIndex, xIndex);
+                SudokuTextField tile = new SudokuTextField(xIndex, yIndex);
 
                 styleSudokuTile(tile,x,y);
 
@@ -158,23 +163,59 @@ public class UserInterfaceImplementation implements IUserInterfaceContract.View,
 
     @Override
     public void updateBoard(SudokuGame game) {
-        for (int)
+        for (int xIndex = 0; xIndex < 9; xIndex++){
+            for (int yIndex = 0; yIndex < 9; yIndex++){
+                TextField tile = textFieldCoordinates.get(new Coordinates(xIndex,yIndex));
+
+                String value = Integer.toString(game.getCopyOfGridState()[xIndex][yIndex]);
+
+                if(value.equals("0")) value = "";
+                tile.setText(value);
+                if(game.getGameState() == GameState.NEW){
+                    if(value.equals("")) {
+                        tile.setStyle("-fx-opacity: 1;");
+                        tile.setDisable(false);
+                    } else {
+                        tile.setStyle("-fx-opacity: 0.8;");
+                        tile.setDisable(true);
+                    }
+                }
+            }
+        }
 
 
     }
 
     @Override
     public void showDialog(String message) {
+        Alert dialog = new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.OK);
+        dialog.showAndWait();
 
+        if (dialog.getResult() == ButtonType.OK) listener.onDialogClick();
     }
 
     @Override
     public void showError(String message) {
-
+        Alert dialog = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
+        dialog.showAndWait();
     }
 
     @Override
     public void handle(KeyEvent keyEvent) {
+        if (keyEvent.getEventType() == KeyEvent.KEY_PRESSED){
+            if (keyEvent.getText().matches("[0-9]")) {
+                int value = Integer.parseInt(keyEvent.getText());
+                handleInput(value, keyEvent.getSource());
+            } else if (keyEvent.getCode() == KeyCode.BACK_SPACE) {
+                handleInput(0,keyEvent.getSource());
+            } else {
+                ((TextField) keyEvent.getSource()).setText("");
+            }
+        }
+        keyEvent.consume();
+    }
 
+    private void handleInput(int value, Object source){
+        listener.onSudokuInput(((SudokuTextField) source).getX(),((SudokuTextField) source).getY(), value);
     }
 }
