@@ -30,7 +30,7 @@ public class SudokuTextField extends TextField {
     @Override
     public void replaceSelection(String s) {
         if (!s.matches("[0-9]")) {
-            super.replaceText(i,i1,s);
+            super.replaceSelection(s);
         }
     }
 }
