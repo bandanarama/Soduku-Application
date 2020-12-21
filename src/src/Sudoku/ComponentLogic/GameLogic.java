@@ -48,17 +48,17 @@ public class GameLogic {
         switch(value) {
             case TOP:
                 if (squareIsInvalid(0,0,grid)) return true;
-                if (squareIsInvalid(3,0,grid)) return true;
-                if (squareIsInvalid(6,0,grid)) return true;
+                if (squareIsInvalid(0,3,grid)) return true;
+                if (squareIsInvalid(0,6,grid)) return true;
                 return false;
             case MIDDLE:
-                if (squareIsInvalid(0,3,grid)) return true;
+                if (squareIsInvalid(3,0,grid)) return true;
                 if (squareIsInvalid(3,3,grid)) return true;
-                if (squareIsInvalid(6,3,grid)) return true;
+                if (squareIsInvalid(3,6,grid)) return true;
                 return false;
             case BOTTOM:
-                if (squareIsInvalid(0,6,grid)) return true;
-                if (squareIsInvalid(3,6,grid)) return true;
+                if (squareIsInvalid(6,0,grid)) return true;
+                if (squareIsInvalid(6,3,grid)) return true;
                 if (squareIsInvalid(6,6,grid)) return true;
                 return false;
             default:

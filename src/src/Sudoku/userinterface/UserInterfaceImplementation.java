@@ -20,7 +20,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
-//import Sudoku.domain.SudokuGame;
 
 public class UserInterfaceImplementation implements IUserInterfaceContract.View,
         EventHandler<KeyEvent> {
@@ -32,8 +31,8 @@ public class UserInterfaceImplementation implements IUserInterfaceContract.View,
 
     private IUserInterfaceContract.EventListener listener;
 
-    private static final double WINDOW_X = 668;
-    private static final double WINDOW_Y = 732;
+    private static final double WINDOW_X = 732;
+    private static final double WINDOW_Y = 668;
     private static final double BOARD_PADDING = 50;
     private static final double BOARD_X_AND_Y = 576;
 
@@ -70,6 +69,7 @@ public class UserInterfaceImplementation implements IUserInterfaceContract.View,
             Rectangle verticalLine = getLine(xAndY + 64 * index, BOARD_PADDING, BOARD_X_AND_Y, thickness);
             Rectangle horizontalLine = getLine(BOARD_PADDING,xAndY + 64 * index, thickness, BOARD_X_AND_Y);
             root.getChildren().addAll(verticalLine,horizontalLine);
+            index++;
         }
     }
 
@@ -216,6 +216,7 @@ public class UserInterfaceImplementation implements IUserInterfaceContract.View,
     }
 
     private void handleInput(int value, Object source){
-        listener.onSudokuInput(((SudokuTextField) source).getX(),((SudokuTextField) source).getY(), value);
+        listener.onSudokuInput(
+                ((SudokuTextField) source).getX(),((SudokuTextField) source).getY(), value);
     }
 }
