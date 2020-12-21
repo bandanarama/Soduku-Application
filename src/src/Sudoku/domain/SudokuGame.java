@@ -1,5 +1,6 @@
 package Sudoku.domain;
 
+import Sudoku.ComponentLogic.SudokuUtilities;
 import Sudoku.constants.GameState;
 
 import java.io.Serializable;

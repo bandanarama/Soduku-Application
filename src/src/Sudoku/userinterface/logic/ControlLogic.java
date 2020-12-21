@@ -1,5 +1,6 @@
 package Sudoku.userinterface.logic;
 
+import Sudoku.ComponentLogic.GameLogic;
 import Sudoku.constants.GameState;
 import Sudoku.constants.Messages;
 import Sudoku.domain.IStorage;
