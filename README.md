@@ -1,7 +1,7 @@
 # Soduku-Application
 
-##Use this repository
--Download, Clone or Fork this repository
+## Use this repository
+- Download, Clone or Fork this repository
 
 ##Requirements
 - Java 11 + 
